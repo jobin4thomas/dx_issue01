@@ -8,7 +8,7 @@ To reproduce the issue regarding Field Dependencies between Managed package pick
     For ex: **Lightning Carousel and Banner package** [Link](https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000EFp50UAD)
 
 
-##Steps to reproduce
+## Steps to reproduce
 
 1. Clone the repo to local
 2. Create a new Scratch org (alias = "poc1")
@@ -23,6 +23,8 @@ sfdx force:package:install --package 04tB00000009XuZIAU --wait 15 --noprompt -u 
 ```
 sfdx force:source:push -u poc1
 ```
+
+
 
 ## Source push results in following error
 ```
@@ -41,8 +43,11 @@ force-app\main\default\objects\cloudx_cms__SS_Carousel_Slide__c\fields\cloudx_cm
 entity=CustomFieldDefinition, component=00N0l000002zssQ, field=PicklistControllerEnumOrId, state=installed (3:13)
 ```
 
-Note: The source push is partially successfull. **This is also an issue as you can see bit later in next section**
+
+**Note:** The source push is partially successfull. **This is also an issue as you can see bit later in next section**
+
 ![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/FirstPush.png)
+
 
 
 
@@ -51,8 +56,10 @@ Note: The source push is partially successfull. **This is also an issue as you c
 2. Go to Object>Carousel Slide (cloudx_cms__SS_Carousel_Slide__c)
 3. Update the field dependencies as shown below
 ![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/Before.png)
-Select Caption Position as Controlling Field and Text Alignment as Dependent Field.
+
+**Select Caption Position as Controlling Field and Text Alignment as Dependent Field.**
 ![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/After.png)
+
 
 4. Now do a source push, its says "No results found" as the previous push was **partially successfull**
 ```
@@ -71,7 +78,9 @@ Add    cloudx_cms__SS_Carousel_Slide__c.cloudx_cms__Text_Alignment__c  CustomFie
 Add    cloudx_cms__SS_Carousel_Slide__c.cloudx_cms__Text_Position__c   CustomField  force-app\main\default\objects\cloudx_cms__SS_Carousel_Slide__c\fields\cloudx_cms__Text_Position__c.field-meta.xml
 00:23:55.958 sfdx force:source:push ended with exit code 0
 ```
-![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/FirstPush.png)
+![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/SecondPush.png)
+
+
 
 
 ## Conclusion
