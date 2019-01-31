@@ -1,4 +1,4 @@
-#dx_issue01
+##dx_issue01
 To reproduce the issue regarding Field Dependencies between Managed package picklist fields. This issue is not specific to DX, but still happens with Force.com migration utility.
 
 ## Prerequisites 
@@ -8,7 +8,7 @@ To reproduce the issue regarding Field Dependencies between Managed package pick
     For ex: **Lightning Carousel and Banner package** [Link](https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000EFp50UAD)
 
 
-#Steps to reproduce
+##Steps to reproduce
 
 1. Clone the repo to local
 2. Create a new Scratch org (alias = "poc1")
@@ -24,7 +24,7 @@ sfdx force:package:install --package 04tB00000009XuZIAU --wait 15 --noprompt -u 
 sfdx force:source:push -u poc1
 ```
 
-#Source push results in following error
+##Source push results in following error
 ```
 PS C:\vscode_space\dx_issues01> sfdx force:source:push
 === Pushed Source
@@ -44,7 +44,9 @@ entity=CustomFieldDefinition, component=00N0l000002zssQ, field=PicklistControlle
 Note: The source push is partially successfull. **This is also an issue as you can see bit later in next section**
 ![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/FirstPush.png)
 
-#Manual Workaround
+
+
+##Manual Workaround
 1. Go to the scratch org ("poc1")
 2. Go to Object>Carousel Slide (cloudx_cms__SS_Carousel_Slide__c)
 3. Update the field dependencies as shown below
@@ -72,7 +74,7 @@ Add    cloudx_cms__SS_Carousel_Slide__c.cloudx_cms__Text_Position__c   CustomFie
 ![alt text](https://raw.githubusercontent.com/jobin4thomas/dx_issue01/master/images/FirstPush.png)
 
 
-#Conclusion
+##Conclusion
 When we create a field dependency between managed package picklist fields, the same cannot be pushed to a new scratch org without the manual work-around. 
 
 This repo also highlight another issue with Salesforce CLI tooling. Since the first source push status was **Partially Succeeded**, the second source push resulted in **No results found**. There is no option in source push to prevent push if there are errors. This is inconvienient as we had to edit the metadata file so that the push can be done again.
